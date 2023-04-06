@@ -26,17 +26,17 @@ const SignIn = () => {
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
+      .then((response) => {
+        console.log(response);
         // localStorage.setItem("Token", result.data.accessToken);
         // localStorage.setItem('ID',JSON.stringify(result.data.data._id));
-        if (result.statusCode >= 400){
+        if (response.statusCode >= 400){
           setIsLoading(false);
-          setError(result.message)
+          setError(response.message)
         }
-        else if(result.statusCode < 400){ 
+        else if(response.statusCode < 400){ 
           setIsLoading(false);
-          navigate('/')
+          { navigate('/',{state:{AccessToken:response.data.accessToken}})}
         }
       })
       .catch((error) => {

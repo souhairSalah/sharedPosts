@@ -19,10 +19,15 @@ export default function Home() {
   }
     return (
       <div>
-        {/* <h1>{data.data.posts}</h1> */}
         <ul>
           {data.data.posts.map((i) => (
-            <li >{i._id}</li>
+            <li className="flex flex-row">
+              <img src={i.image} width={60} height={60} />
+              <div className="flex flex-col">
+                <p>{i.user.name}</p>
+                <p>{i.text}</p>  
+              </div>  
+            </li>
           ))}
         </ul> 
       </div>

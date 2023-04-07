@@ -70,7 +70,9 @@ const SignIn = () => {
         </div>
         <p className="text-red-700 mb-5">{error}</p>       
 
-        {isLoading ?  "isloading..." : <Button title={"Login"} type="submit" /> } 
+         <Button title={isloading ? "Login" : "Submitting..."} type="submit" /> 
+
+        {/* {isLoading ?  "isloading..." : <Button title={"Login"} type="submit" /> }  */}
         <p className="text-base font-semibold text-center mt-10">
           Don't have an account?{" "}
           <Link className="text-[#2D65E4]" to="/SignUp">

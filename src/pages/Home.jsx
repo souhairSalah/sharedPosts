@@ -6,7 +6,7 @@ import {useLocation} from 'react-router-dom';
 export default function Home() {
   const location = useLocation();
   const token = location.state.AccessToken;
-  const {error, data, isloading} = useAxios('https://hakathon2023.onrender.com/api/post/list', {
+  const {responseData, error, isloading} = useAxios('https://hakathon2023.onrender.com/api/post/list', {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
   });
@@ -20,7 +20,7 @@ export default function Home() {
     return (
       <div>
         <ul>
-          {data.data.posts.map((i) => (
+          {responseData.data.posts.map((i) => (
             <li className="flex flex-row">
               <img src={i.image} width={60} height={60} />
               <div className="flex flex-col">

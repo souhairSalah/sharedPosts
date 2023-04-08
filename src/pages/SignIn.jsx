@@ -5,6 +5,7 @@ import Logo from "../components/Logo";
 import { Link } from "react-router-dom";
 import Button from "../components/Botton";
 import { useNavigate } from "react-router-dom";
+import useAxios from "../hooks/useAxios";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -18,8 +19,17 @@ const SignIn = () => {
       mode :"all"
      });
 
+
+  // const {responseData, error, isloading} = useAxios('https://hakathon2023.onrender.com/api/auth/login', {
+  //   'Content-Type': 'application/json',
+  //   Authorization: `Bearer ${token}`,
+  // }, body: JSON.stringify(formData));
+  // if (responseData.) {
+  //   return <div>Loading...</div>;
+  // }
+
   const onSubmit = (formData) => {
-    setIsLoading(true);
+  setIsLoading(true);
     fetch("https://hakathon2023.onrender.com/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -28,8 +38,6 @@ const SignIn = () => {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        // localStorage.setItem("Token", result.data.accessToken);
-        // localStorage.setItem('ID',JSON.stringify(result.data.data._id));
         if (response.statusCode >= 400){
           setIsLoading(false);
           setError(response.message)
@@ -43,7 +51,7 @@ const SignIn = () => {
         console.error(error);
         setIsLoading(false);
       });
-  };
+    }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -69,8 +77,8 @@ const SignIn = () => {
           <p className="text-red-700">{errors.email?.message}</p> 
         </div>
         <p className="text-red-700 mb-5">{error}</p>       
-
-         <Button title={isloading ? "Login" : "Submitting..."} type="submit" /> 
+        
+         <Button title={isLoading ? "Submitting..." : "Login"} type="submit" /> 
 
         {/* {isLoading ?  "isloading..." : <Button title={"Login"} type="submit" /> }  */}
         <p className="text-base font-semibold text-center mt-10">
@@ -86,3 +94,26 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+
+
+// const {responseData, error, isloading} = useAxios('https://hakathon2023.onrender.com/api/auth/login', {
+//   'Content-Type': 'application/json',
+// },
+// );
+      
+
+
+
+
+
+
+ 
+// const onSubmit = (formData) => {
+// const dataToSend = JSON.stringify(formData);
+
+
+
+
+
+// };

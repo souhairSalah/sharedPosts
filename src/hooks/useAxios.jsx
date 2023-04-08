@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const useAxios = (url, headers) => {
-    const [data, setData] = useState(null);
+const useAxios = (url, headers = null, body = null, method = "get" ) => {
+    const [responseData, setResponseData] = useState(null);
+    // const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [isloading, setIsLoading] = useState(true);
 
@@ -10,10 +11,10 @@ const useAxios = (url, headers) => {
     useEffect(() => {
         const fetchData = async () =>{
             try {
-                const response = await axios.get(url, {
-                    headers: headers,
+                const response = await axios[method.toLowerCase()](url, {
+                    headers : headers ,
                 });
-                setData(response.data);
+                setResponseData(response.data);
             }catch(error){
                 setError(error);
             }
@@ -22,7 +23,7 @@ const useAxios = (url, headers) => {
         fetchData();
     },[url]);
 
-    return {data, error, isloading};
+    return {responseData, error, isloading};
 
 }
 export default useAxios;

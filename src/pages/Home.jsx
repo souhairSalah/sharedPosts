@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import useAxios from "../hooks/useAxios";
 import {useLocation} from 'react-router-dom';
 
@@ -6,11 +6,17 @@ import {useLocation} from 'react-router-dom';
 export default function Home() {
   const location = useLocation();
   const token = location.state.AccessToken;
-  const {responseData, error, isloading} = useAxios('https://hakathon2023.onrender.com/api/post/list', {
+  const {responseData, error, isloading, fetchData} = useAxios('https://hakathon2023.onrender.com/api/post/list','get',{
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
   });
 
+  useEffect(() => {
+    fetchData();
+  },[]);
+
+ 
+ 
   if (isloading) {
     return <div>Loading...</div>;
   }
@@ -36,12 +42,20 @@ export default function Home() {
 
 
 
-{/* <ul>
-          {data.posts.map((i) => (
-            <li >{i.posts}</li>
-          ))}
-        </ul> */}
+  // 'get',  {
+  //       'Content-Type': 'application/json',
+  //       Authorization: `Bearer ${token}`,
+  //     });
 
+  // const {responseData, error, isLoading, sendRequest } = useAxios();
+ 
+
+  // useEffect(() => {
+  //   sendRequest('https://hakathon2023.onrender.com/api/post/list', 'get',  {
+  //     'Content-Type': 'application/json',
+  //     Authorization: `Bearer ${token}`,
+  //   });
+  // },[]);
 
 
   // {reptiles.map((reptile, i)=>(

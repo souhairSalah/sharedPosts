@@ -18,40 +18,47 @@ const SignIn = () => {
      } = useForm({
       mode :"all"
      });
-
-
-  // const {responseData, error, isloading} = useAxios('https://hakathon2023.onrender.com/api/auth/login', {
-  //   'Content-Type': 'application/json',
-  //   Authorization: `Bearer ${token}`,
-  // }, body: JSON.stringify(formData));
-  // if (responseData.) {
-  //   return <div>Loading...</div>;
-  // }
+    //  const {responseData, error, isloading, fetchData} = useAxios('https://hakathon2023.onrender.com/api/auth/login','post',{
+    //   "Content-Type": "application/json" 
+    //   });
 
   const onSubmit = (formData) => {
+    // const dataToSend = JSON.stringify(formData);
+    // fetchData(dataToSend);
+    // if (responseData.statusCode >= 400){
+    //     console.log("hhhhhhh")
+    //   }
+
+
   setIsLoading(true);
-    fetch("https://hakathon2023.onrender.com/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response);
-        if (response.statusCode >= 400){
-          setIsLoading(false);
-          setError(response.message)
-        }
-        else if(response.statusCode < 400){ 
-          setIsLoading(false);
-          { navigate('/',{state:{AccessToken:response.data.accessToken}})}
-        }
-      })
-      .catch((error) => {
-        console.error(error);
+  fetch("https://hakathon2023.onrender.com/api/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+      if (response.statusCode >= 400){
         setIsLoading(false);
-      });
-    }
+        setError(response.message)
+      }
+      else if(response.statusCode < 400){ 
+        setIsLoading(false);
+        { navigate('/',{state:{AccessToken:response.data.accessToken}})}
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      setIsLoading(false);
+    });
+           
+}
+
+
+        
+
+    
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -94,6 +101,19 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+// const {responseData, error, isloading, sendRequest} = useAxios('https://hakathon2023.onrender.com/api/auth/login', {
+//     'Content-Type': 'application/json',
+//   });
+//   const onSubmit = (formData) => {
+//     const dataToSend = formData;
+//     sendRequest("post", dataToSend);
+//     console.log(responseData);
+           
+// }
+
+
+
 
 
 

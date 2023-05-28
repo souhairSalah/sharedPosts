@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import {useForm} from "react-hook-form";
-import Input from "../components/Input";
 import Logo from "../components/Logo";
 import { Link } from "react-router-dom";
 import Button from "../components/Botton";
 import { useNavigate } from "react-router-dom";
-import useAxios from "../hooks/useAxios";
 
 const SignIn = () => {
   const navigate = useNavigate();

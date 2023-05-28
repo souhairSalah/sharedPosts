@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React,{useState } from "react";
 import {useForm} from "react-hook-form";
-import axios from 'axios';
-import Input from "../components/Input";
 import Logo from "../components/Logo";
 import { Link } from "react-router-dom";
 import Button from "../components/Botton";

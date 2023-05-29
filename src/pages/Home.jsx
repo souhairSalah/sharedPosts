@@ -4,22 +4,12 @@ import {useLocation} from 'react-router-dom';
 import OneSignal from 'react-onesignal';
 import Logo from "../components/Logo";
 import Input from "../components/Input";
+// import Modal from "../components/Modal";
+import AddPost from "../components/AddPost";
 
-import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
 
 
 export default function Home() {
-  let [isOpen, setIsOpen] = useState(true)
-
-  function closeModal() {
-    setIsOpen(false)
-  }
-
-  function openModal() {
-    setIsOpen(true)
-  }
-
   useEffect(() => {
     OneSignal.init({ appId:'c77bf5ca-d390-4ad6-a005-dd403c621e52'});
   });
@@ -50,23 +40,40 @@ export default function Home() {
   }
 
     return (
-      <div className="pt-4 ">
+      <div className="pt-4 px-4">
         <ul className="flex justify-between ">
           <li>
             <Logo/>
           </li>
           <li>
-           <input type="search" className=" pl-2 w-72 border border-sky-500 h-9" placeholder="search" />
+           <input type="text" className=" pl-2 w-72  border border-slate-600 h-9" placeholder="search" />
             {/* <Input type="search" className="w-72 border border-sky-500"/> */}
           </li>
           <li>saheer salah</li>
         </ul>
         <hr></hr>
+        
         <h1>{responseData.statusCode}</h1>
         <div className=" px-24 ">
         <div className="  flex justify-between pb-2.5">
           <h1 className="text-lg font-semibold">List of post</h1>
-          <button className="text-slate-50 w-3 h-3  rounded-full border border-sky-500 bg-sky-700">+</button>
+          {/* <Modal header="Add Post"
+           children= {
+            <>
+             <div className="mt-2">
+                <p className="text-sm text-gray-500">
+                  Your payment has been successfully submitted. We’ve sent
+                  you an email with all of the details of your order.
+                </p>
+              </div>
+            </>
+           }
+           title="+" 
+           classNamee="text-slate-50 w-10 h-10  rounded-full border border-sky-500 bg-sky-700"
+           /> */}
+
+           <AddPost/>
+          {/* <button className="text-slate-50 w-3 h-3  rounded-full border border-sky-500 bg-sky-700">+</button> */}
         </div>
         <ul className="">
           {responseData.data.posts.map((i) => (
@@ -80,74 +87,9 @@ export default function Home() {
           ))}
         </ul> 
         </div>
+        
 
 
-        <>
-      <div className="fixed inset-0 flex items-center justify-center">
-        <button
-          type="button"
-          onClick={openModal}
-          className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-        >
-          Open dialog
-        </button>
-      </div>
-
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
-                  >
-                    Payment successful
-                  </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Your payment has been successfully submitted. We’ve sent
-                      you an email with all of the details of your order.
-                    </p>
-                  </div>
-
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Got it, thanks!
-                    </button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
-    </>
         
 
         
